@@ -1,4 +1,5 @@
 header {
+    position: relative;
     width: 100%;
     height: auto;
     margin: 0px;
@@ -8,12 +9,26 @@ header {
     text-align: center;
 }
 
-.navbar {
-    display: block;
+.navigation-primary {
+    display: inline-block;
     /* width: auto; */
     margin: auto;
 }
 
-.navbar a {
+.navigation-primary a {
+    padding: 5px;
+}
+
+.navigation-secondary {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    /* width: auto; */
+    /* float: right; */
+    margin: auto;
+    /* margin-right: 10px; */
+}
+
+.navigation-secondary a {
     padding: 5px;
 }

@@ -7,6 +7,9 @@ import { LandingpageComponent } from './landingpage/landingpage.component';
 import { BlogComponent } from './blog/blog.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { HeaderComponent } from './header/header.component';
+import { ShopComponent } from './shop/shop.component';
+import { ManagementComponent } from './management/management.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -14,14 +17,20 @@ import { HeaderComponent } from './header/header.component';
     LandingpageComponent,
     BlogComponent,
     PortfolioComponent,
-    HeaderComponent
+    HeaderComponent,
+    ShopComponent,
+    ManagementComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       { path: '', component: LandingpageComponent },
       { path: 'blog', component: BlogComponent },
-      { path: 'portfolio', component: PortfolioComponent }
+      { path: 'portfolio', component: PortfolioComponent },
+      { path: 'portfolio/shop', component: ShopComponent },
+      { path: 'management', component: ManagementComponent },
+      { path: 'login', component: LoginComponent }
     ])
   ],
   providers: [],
