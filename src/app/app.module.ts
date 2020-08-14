@@ -10,6 +10,8 @@ import { HeaderComponent } from './header/header.component';
 import { ShopComponent } from './shop/shop.component';
 import { ManagementComponent } from './management/management.component';
 import { LoginComponent } from './login/login.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { LoginComponent } from './login/login.component';
     HeaderComponent,
     ShopComponent,
     ManagementComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
