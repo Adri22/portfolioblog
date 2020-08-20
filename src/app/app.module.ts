@@ -1,6 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { AppComponent } from './app.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
@@ -35,7 +37,9 @@ import { CarouselComponent } from './carousel/carousel.component';
       { path: 'portfolio/shop', component: ShopComponent },
       { path: 'management', component: ManagementComponent },
       { path: 'login', component: LoginComponent }
-    ])
+    ]),
+    FormsModule,
+    CarouselModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

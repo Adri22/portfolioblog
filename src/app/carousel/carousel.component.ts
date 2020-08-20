@@ -10,17 +10,14 @@ export class CarouselComponent implements OnInit {
 
   @Input() carouselID;
 
-  items = [
+  items = [ // test
     { title: "test", text: "test test test" },
     { title: "testtest", text: "testtest test testtest" },
     { title: "testtesttest", text: "test test testtest test test" }
   ];
 
-  activeIndex = 0; // test
-
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SitedataService } from '../sitedata.service';
+
 @Component({
   selector: 'app-management',
   templateUrl: './management.component.html',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManagementComponent implements OnInit {
 
-  constructor() { }
+  test: string;
+
+  constructor(private sitedataService: SitedataService) { }
 
   ngOnInit(): void {
+    this.getSitedata();
   }
 
+  getSitedata(): void {
+    this.sitedataService.getData().subscribe(data => this.test = data);
+  }
+
+  submit(): void {
+    this.sitedataService.setData(this.test);
+  }
 }
