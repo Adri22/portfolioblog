@@ -1,10 +1,11 @@
 const express = require('express');
 const { response } = require('express');
-const router = express.Router();
 const mongoClient = require('mongodb').MongoClient;
 const objectID = require('mongodb').objectID;
 
-// TODO: create external file with this data for deployment
+const router = express.Router();
+
+// TODO: add to external settings-file
 const dbHost = "localhost";
 const dbPort = "27017";
 const dbName = "portfolioblog";
@@ -16,21 +17,19 @@ const connection = (closure) => {
         }
         closure(db);
     });
-};
+}
 
-const sendError = (err, res) => {
+const handleResult = (res, data) => {
+    response.status = 200;
+    response.data = data;
+    res.status(response.status).json(response);
+}
+
+const handleError = (res, err) => {
     response.status = 501;
     response.message = typeof err == "object" ? err.message : err;
-    res.status(501).json(response);
-};
-
-/*
-let response = {
-    status: 200,
-    data: [],
-    message: null
-};
-*/
+    res.status(response.status).json(response);
+}
 
 // test-endpoint
 router.get("/test", (req, res) => {
@@ -39,13 +38,16 @@ router.get("/test", (req, res) => {
             .find()
             .toArray()
             .then((test) => {
-                response.data = test;
-                res.json(response);
+                handleResult(res, test);
             })
             .catch((err) => {
-                sendError(err, res);
+                handleError(res, err);
             });
     });
+});
+
+router.get("/bla", (req, res) => { // test
+    res.send("testtesttest123");
 });
 
 module.exports = router;
