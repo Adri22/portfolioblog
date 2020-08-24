@@ -5,13 +5,14 @@ const objectID = require('mongodb').objectID;
 
 const router = express.Router();
 
-// TODO: add to external settings-file
-const dbHost = "localhost";
-const dbPort = "27017";
-const dbName = "portfolioblog";
+const dbConnection = { // TODO: add to external settings-file
+    host: "localhost",
+    port: "27017",
+    name: "portfolioblog"
+}
 
 const connection = (closure) => {
-    return mongoClient.connect("mongodb://" + dbHost + ":" + dbPort + "/" + dbName, (err, db) => {
+    return mongoClient.connect("mongodb://" + dbConnection.host + ":" + dbConnection.port + "/" + dbConnection.name, (err, db) => {
         if (err) {
             return console.log(err);
         }
@@ -47,7 +48,7 @@ router.get("/test", (req, res) => {
 });
 
 router.get("/bla", (req, res) => { // test
-    res.send("testtesttest123");
+    res.send({ testtext: "testtesttest123" });
 });
 
 module.exports = router;

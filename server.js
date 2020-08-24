@@ -6,6 +6,11 @@ const api = require('./server/routes/api'); // MongoDB-API
 
 const app = express();
 
+const application = { // TODO: add to external settings-file
+    domain: "localhost",
+    port: "4200"
+}
+
 const defaultPort = "3000"; // TODO: add to external settings-file
 const port = process.env.PORT || defaultPort;
 
@@ -20,10 +25,18 @@ if (production) {
 
 app.set("port", port);
 
+app.use(function (req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "http://" + application.domain + ":" + application.port);
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    next();
+});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, env)));
-app.use("/api", api);
+
+app.use("/api", api); // routing
 
 app.get("*", (req, res) => {
     let p = path.join(__dirname, env + "/index.html");

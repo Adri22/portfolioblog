@@ -9,7 +9,7 @@ import { SitedataService } from '../sitedata.service';
 })
 export class ManagementComponent implements OnInit {
 
-  test: string;
+  testdata: any;
 
   constructor(private sitedataService: SitedataService) { }
 
@@ -18,10 +18,10 @@ export class ManagementComponent implements OnInit {
   }
 
   getSitedata(): void {
-    this.sitedataService.getData().subscribe(data => this.test = data);
+    this.sitedataService.getData().subscribe(data => this.testdata = data);
   }
 
   submit(): void {
-    this.sitedataService.setData(this.test);
+    this.sitedataService.setData(this.testdata);
   }
 }
