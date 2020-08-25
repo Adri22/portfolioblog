@@ -1,9 +1,7 @@
 const express = require('express');
 const { response } = require('express');
-const mongoClient = require('mongodb').MongoClient;
-const objectID = require('mongodb').objectID;
-
-const router = express.Router();
+const { MongoClient } = require('mongodb');
+// const objectID = require('mongodb').objectID;
 
 const dbConnection = { // TODO: add to external settings-file
     host: "localhost",
@@ -11,13 +9,23 @@ const dbConnection = { // TODO: add to external settings-file
     name: "portfolioblog"
 }
 
-const connection = (closure) => {
-    return mongoClient.connect("mongodb://" + dbConnection.host + ":" + dbConnection.port + "/" + dbConnection.name, (err, db) => {
-        if (err) {
-            return console.log(err);
-        }
-        closure(db);
-    });
+const mongoURI = `mongodb://${dbConnection.host}:${dbConnection.port}`;
+
+const mongoClient = new MongoClient(mongoURI, { useUnifiedTopology: true });
+const router = express.Router();
+
+async function runDB() {
+    try {
+        // Connect the client to the server
+        await mongoClient.connect();
+
+        // Establish and verify connection
+        await mongoClient.db(dbConnection.name).command({ ping: 1 });
+        console.log("Connected successfully to database");
+    } finally {
+        // Ensures that the client will close when you finish/error
+        await mongoClient.close();
+    }
 }
 
 const handleResult = (res, data) => {
@@ -34,22 +42,14 @@ const handleError = (res, err) => {
 
 // test-endpoint
 router.get("/test", (req, res) => {
-    connection((db) => {
-        db.collection("test")
-            .find()
-            .toArray()
-            .then((test) => {
-                handleResult(res, test);
-            })
-            .catch((err) => {
-                handleError(res, err);
-            });
-    });
+    // add mongo-query here
 });
 
 router.get("/bla", (req, res) => { // test
     res.send({ testtext: "testtesttest123" });
 });
+
+runDB().catch(console.dir);
 
 module.exports = router;
 
