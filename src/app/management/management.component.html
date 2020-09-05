@@ -1,5 +1,8 @@
-<input class="form-control" [(ngModel)]="testdata.name" placeholder="test">
 
-<p> {{testdata.name}} </p>
+<!--
+<input class="form-control" [(ngModel)]="testdata.name" placeholder="test">
+-->
+
+<p *ngFor="let data of testdata"> {{data.name}} </p>
 
 <button (click)="submit()">Submit</button>

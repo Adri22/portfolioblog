@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +22,18 @@ export class ConnectionService {
   };
   */
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getURL(): string {
+  requestAt(endpoint: string): Observable<string> {
+    return this.http.get<string>(`${this.getURL()}${endpoint}`)
+      .pipe(catchError(this.handleError<string>({ serviceName: endpoint, operation: "" })));
+  }
+
+  private getURL(): string {
     return this.url;
   }
 
-  handleError<T>(serviceName: string, operation = "operation", result?: T) {
+  private handleError<T>({ serviceName, operation = "operation", result }: { serviceName: string; operation?: string; result?: T; }) {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure

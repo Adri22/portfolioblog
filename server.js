@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const moment = require('moment');
 const path = require('path');
 const http = require('http');
-const api = require('./server/routes/api'); // MongoDB-API
+const api = require('./server/routes/api');
 
 const app = express();
 
@@ -38,10 +38,10 @@ app.use(function (req, res, next) {
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, env)));
 
-app.use("/api", api); // routing
+app.use("/api", api);
 
 app.get("*", (req, res) => {
     let p = path.join(__dirname, `${env}/index.html`);

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -12,13 +11,11 @@ import { ConnectionService } from './connection.service';
 export class SitedataService {
 
   constructor(
-    private connectionService: ConnectionService,
-    private http: HttpClient
+    private connectionService: ConnectionService
   ) { }
 
   getData(): Observable<string> {
-    return this.http.get<string>(`${this.connectionService.getURL()}/test`)
-      .pipe(catchError(this.connectionService.handleError<string>("getData", "")));
+    return this.connectionService.requestAt("/test");
   }
 
   setData(data) {
