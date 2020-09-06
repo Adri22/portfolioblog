@@ -1,19 +1,11 @@
 const { MongoClient } = require('mongodb');
+const settings = require('../environment-settings.json');
 
-const dbConnection = { // TODO: add to external settings-file
-    host: "localhost",
-    port: "27017",
-    name: "portfolioblog",
-    auth: {
-        mechanism: "DEFAULT",
-        user: encodeURIComponent("devUser"),
-        pwd: encodeURIComponent("test")
-    }
-}
+const dbConnection = settings.database;
 
 class MongoHandler {
     #uri = `mongodb://`
-        + `${dbConnection.auth.user}:${dbConnection.auth.pwd}`
+        + `${encodeURIComponent(dbConnection.auth.user)}:${encodeURIComponent(dbConnection.auth.pwd)}`
         + `@${dbConnection.host}:${dbConnection.port}`
         + `/?authMechanism=${dbConnection.auth.mechanism}`;
 

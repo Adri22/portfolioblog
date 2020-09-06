@@ -1,0 +1,24 @@
+{
+    "application": {
+        "host": "localhost",
+        "port": "4200"
+    },
+    "server": {
+        "host": "localhost",
+        "port": "3000",
+        "settings": {
+            "logger": true,
+            "production": false
+        }
+    },
+    "database": {
+        "host": "localhost",
+        "port": "27017",
+        "name": "DB_NAME",
+        "auth": {
+            "mechanism": "DEFAULT",
+            "user": "USER_NAME",
+            "pwd": "USER_PASSWORD"
+        }
+    }
+}

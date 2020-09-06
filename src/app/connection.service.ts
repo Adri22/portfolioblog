@@ -4,23 +4,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
+import settings from '../../environment-settings.json';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ConnectionService {
 
-  private server = { // TODO: add to external settings-file
-    host: "localhost",
-    port: "3000"
+  private server = {
+    host: settings.server.host,
+    port: settings.server.port
   }
 
   private url = `http://${this.server.host}:${this.server.port}/api`;
-
-  /*
-  httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
-  };
-  */
 
   constructor(private http: HttpClient) { }
 

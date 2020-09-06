@@ -3,21 +3,19 @@ const bodyParser = require('body-parser');
 const moment = require('moment');
 const path = require('path');
 const http = require('http');
+const settings = require('./environment-settings.json');
 const api = require('./server/routes/api');
 
 const app = express();
 
-const application = { // TODO: add to external settings-file
-    domain: "localhost",
-    port: "4200"
-}
+const application = settings.application;
 
-const defaultPort = "3000"; // TODO: add to external settings-file
+const defaultPort = settings.server.port;
 const port = process.env.PORT || defaultPort;
 
-const logOn = true; // TODO: add to external settings-file
+const logOn = settings.server.settings.logger;
 
-const production = false; // TODO: add to external settings-file
+const production = settings.server.settings.production;
 const env = production ? "dist" : "src"; // development or production environment?
 
 app.set("port", port);
@@ -30,7 +28,7 @@ app.use(function (req, res, next) { // logging
 });
 
 app.use(function (req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", `http://${application.domain}:${application.port}`);
+    res.setHeader("Access-Control-Allow-Origin", `http://${application.host}:${application.port}`);
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
     res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");
     res.setHeader("Access-Control-Allow-Credentials", true);
