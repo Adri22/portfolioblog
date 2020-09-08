@@ -6,17 +6,33 @@ const mongoHandler = new MongoHandler();
 
 mongoHandler.connect();
 
-// test-endpoint
-app.get("/test", async (req, res) => {
-    let data = null;
+/*
+handleError = (res, error) => {
+    console.log(`something bad happened: ${error}`);
+    res.status(500).send(error);
+}
+*/
 
+// test-endpoint
+app.get("/gettest", async (req, res) => {
     try {
-        data = await mongoHandler.findIn("test");
+        let data = await mongoHandler.findIn("test");
+        res.status(200).send(data);
+    } catch (err) {
+        // this.handleError(res, err);
+        console.log(`something bad happened: ${err}`);
+        res.status(500).send(err);
+    }
+});
+
+app.get("/settest", async (req, res) => {
+    try {
+        console.log(JSON.stringify(req.body));
+        // await mongoHandler.insertIn("test", req.body);
     } catch (err) {
         console.log(`something bad happened: ${err}`);
+        res.status(500).send(err);
     }
-
-    res.send(data);
 });
 
 module.exports = app;

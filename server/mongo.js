@@ -24,12 +24,15 @@ class MongoHandler {
         } finally {
             console.log(`Connected successfully to database ${dbConnection.name}`);
             this.#db = this.#mongoClient.db(dbConnection.name); // get database-object
-            // await mongoClient.close();
+            // await this.#mongoClient.close();
         }
     }
 
     async findIn(collectionName) {
         return await this.#db.collection(collectionName).find().toArray();
+    }
+
+    async insertIn(collectionName, data) {
     }
 
 

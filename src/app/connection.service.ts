@@ -16,27 +16,47 @@ export class ConnectionService {
     port: settings.server.port
   }
 
-  private url = `http://${this.server.host}:${this.server.port}/api`;
+  private apiURL = `http://${this.server.host}:${this.server.port}/api`;
+
+  httpOptions = { // TODO: build up dynamically
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   constructor(private http: HttpClient) { }
 
-  requestAt(endpoint: string): Observable<string> {
-    return this.http.get<string>(`${this.getURL()}${endpoint}`)
-      .pipe(catchError(this.handleError<string>({ serviceName: endpoint, operation: "" })));
+  getRequest<T>(endpoint: string): Observable<T> {
+    return this.http.get<T>(`${this.getAPIURL()}${endpoint}`)
+      .pipe(catchError(this.handleError<T>({ operation: endpoint })));
   }
 
-  private getURL(): string {
-    return this.url;
+  postRequest<T>(endpoint: string, data: any): Observable<T> {
+    return this.http.post<T>(`${this.getAPIURL()}${endpoint}`, data, this.httpOptions)
+      .pipe(catchError(this.handleError<T>({ operation: endpoint })));
   }
 
-  private handleError<T>({ serviceName, operation = "operation", result }: { serviceName: string; operation?: string; result?: T; }) {
+  /*
+  putRequest(endpoint: string, data: any): Observable<boolean> {
+
+  }
+
+  deleteRequest(endpoint: string, data: any): Observable<boolean> {
+
+  }
+  */
+
+  getAPIURL(): string {
+    return this.apiURL;
+  }
+
+  private handleError<T>({ service = "service", operation = "operation", result }:
+    { service?: string; operation?: string; result?: T; }) {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
-      this.log(`${serviceName}: ${operation} failed: ${error.message}`);
+      this.log(`${service}: ${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

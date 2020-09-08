@@ -10,6 +10,7 @@ import { SitedataService } from '../sitedata.service';
 export class ManagementComponent implements OnInit {
 
   testdata: any;
+  input: string;
 
   constructor(private sitedataService: SitedataService) { }
 
@@ -22,6 +23,6 @@ export class ManagementComponent implements OnInit {
   }
 
   submit(): void {
-    this.sitedataService.setData(this.testdata);
+    this.sitedataService.setData(this.input).subscribe();
   }
 }

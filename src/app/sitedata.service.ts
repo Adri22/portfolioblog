@@ -14,11 +14,11 @@ export class SitedataService {
     private connectionService: ConnectionService
   ) { }
 
-  getData(): Observable<string> {
-    return this.connectionService.requestAt("/test");
+  getData(): Observable<string> { // any?
+    return this.connectionService.getRequest("/gettest");
   }
 
-  setData(data) {
-    // this.test = data;
+  setData(data: string): Observable<boolean> {
+    return this.connectionService.postRequest("/settest", data);
   }
 }
