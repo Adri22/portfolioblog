@@ -4,11 +4,11 @@ const moment = require('moment');
 const path = require('path');
 const http = require('http');
 const settings = require('./environment-settings.json');
-const api = require('./server/routes/api');
+const api = require('./server/routes/api').api;
 
 const app = express();
 
-const application = settings.application;
+const applicationInfo = settings.application;
 
 const defaultPort = settings.server.port;
 const port = process.env.PORT || defaultPort;
@@ -28,7 +28,7 @@ app.use(function (req, res, next) { // logging
 });
 
 app.use(function (req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", `http://${application.host}:${application.port}`);
+    res.setHeader("Access-Control-Allow-Origin", `http://${applicationInfo.host}:${applicationInfo.port}`);
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
     res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");
     res.setHeader("Access-Control-Allow-Credentials", true);

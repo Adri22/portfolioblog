@@ -14,11 +14,11 @@ export class SitedataService {
     private connectionService: ConnectionService
   ) { }
 
-  getData(): Observable<string> { // any?
+  getData(): Observable<any> { // change any to matching datatype?
     return this.connectionService.getRequest("/gettest");
   }
 
-  setData(data: string): Observable<boolean> {
+  setData(data: any): Observable<any> {
     return this.connectionService.postRequest("/settest", data);
   }
 }

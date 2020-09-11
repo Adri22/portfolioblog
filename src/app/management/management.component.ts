@@ -23,6 +23,8 @@ export class ManagementComponent implements OnInit {
   }
 
   submit(): void {
-    this.sitedataService.setData(this.input).subscribe();
+    this.sitedataService.setData({ name: this.input }).subscribe(data => {
+      this.testdata = this.testdata.concat(data.ops);
+    });
   }
 }

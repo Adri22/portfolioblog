@@ -16,6 +16,14 @@ class MongoHandler {
         this.#mongoClient = new MongoClient(this.#uri, { useUnifiedTopology: true });
     }
 
+    #operation = async (action) => {
+        try {
+            return await action();
+        } catch (err) { // TODO: add error-handling
+            console.log(err);
+        } finally { }
+    }
+
     async connect() {
         try {
             await this.#mongoClient.connect(); // Connect the client to the server
@@ -29,10 +37,15 @@ class MongoHandler {
     }
 
     async findIn(collectionName) {
-        return await this.#db.collection(collectionName).find().toArray();
+        return await this.#operation(
+            () => this.#db.collection(collectionName).find().toArray()
+        );
     }
 
     async insertIn(collectionName, data) {
+        return await this.#operation(
+            () => this.#db.collection(collectionName).insertOne(data)
+        );
     }
 
 
