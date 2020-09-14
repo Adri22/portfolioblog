@@ -7,28 +7,40 @@ import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { AppComponent } from './app.component';
-import { LandingpageComponent } from './landingpage/landingpage.component';
-import { BlogComponent } from './blog/blog.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
-import { HeaderComponent } from './header/header.component';
-import { ShopComponent } from './shop/shop.component';
-import { ManagementComponent } from './management/management.component';
-import { LoginComponent } from './login/login.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { CarouselComponent } from './carousel/carousel.component';
+
+import { CarouselComponent } from './shared/carousel/carousel.component';
+import { HeaderComponent } from './shared/header/header.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+
+import { AboutComponent } from './features/about/about.component';
+import { AboutManagementComponent } from './features/about/about-management/about-management.component';
+import { BlogComponent } from './features/blog/blog.component';
+import { BlogManagementComponent } from './features/blog/blog-management/blog-management.component';
+import { LandingpageComponent } from './features/landingpage/landingpage.component';
+import { LoginComponent } from './features/login/login.component';
+import { ManagementComponent } from './features/management/management.component';
+import { PortfolioComponent } from './features/portfolio/portfolio.component';
+import { PortfolioManagementComponent } from './features/portfolio/portfolio-management/portfolio-management.component';
+import { ShopComponent } from './features/shop/shop.component';
+import { ShopManagementComponent } from './features/shop/shop-management/shop-management.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingpageComponent,
-    BlogComponent,
-    PortfolioComponent,
+    CarouselComponent,
     HeaderComponent,
-    ShopComponent,
-    ManagementComponent,
-    LoginComponent,
     NavbarComponent,
-    CarouselComponent
+    AboutComponent,
+    AboutManagementComponent,
+    BlogComponent,
+    BlogManagementComponent,
+    LandingpageComponent,
+    LoginComponent,
+    ManagementComponent,
+    PortfolioComponent,
+    PortfolioManagementComponent,
+    ShopComponent,
+    ShopManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +50,8 @@ import { CarouselComponent } from './carousel/carousel.component';
       { path: 'portfolio', component: PortfolioComponent },
       { path: 'portfolio/shop', component: ShopComponent },
       { path: 'management', component: ManagementComponent },
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent },
+      { path: 'about', component: AboutComponent }
     ]),
     HttpClientModule,
     FormsModule,

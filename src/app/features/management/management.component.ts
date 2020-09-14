@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SitedataService } from '../sitedata.service';
+import { SitedataService } from '../../services/sub/sitedata.service';
 
 @Component({
   selector: 'app-management',

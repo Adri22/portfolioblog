@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { ConnectionService } from './connection.service';
+import { ConnectionService } from '../connection.service';
 
 @Injectable({
   providedIn: "root"
