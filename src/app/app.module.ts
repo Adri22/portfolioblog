@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { CarouselComponent } from './shared/carousel/carousel.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { TagsComponent } from './shared/tags/tags.component';
+import { TagsManagementComponent } from './shared/tags/tags-management/tags-management.component';
 
 import { AboutComponent } from './features/about/about.component';
 import { AboutManagementComponent } from './features/about/about-management/about-management.component';
@@ -30,6 +32,8 @@ import { ShopManagementComponent } from './features/shop/shop-management/shop-ma
     CarouselComponent,
     HeaderComponent,
     NavbarComponent,
+    TagsComponent,
+    TagsManagementComponent,
     AboutComponent,
     AboutManagementComponent,
     BlogComponent,
