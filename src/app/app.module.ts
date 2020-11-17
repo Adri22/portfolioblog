@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -26,6 +26,53 @@ import { PortfolioManagementComponent } from './features/portfolio/portfolio-man
 import { ShopComponent } from './features/shop/shop.component';
 import { ShopManagementComponent } from './features/shop/shop-management/shop-management.component';
 
+const appRoutes: Routes = [
+  { path: '', component: LandingpageComponent },
+  { path: 'blog', component: BlogComponent },
+  {
+    path: 'portfolio',
+    component: PortfolioComponent
+    /*
+    children: [
+      {
+        path: 'shop',
+        component: ShopComponent
+      }
+    ]
+    */
+  },
+  { path: 'portfolio/shop', component: ShopComponent },
+  {
+    path: 'management',
+    component: ManagementComponent,
+    children: [
+      {
+        path: 'general',
+        component: AboutManagementComponent
+      },
+      {
+        path: 'blog',
+        component: BlogManagementComponent
+      },
+      {
+        path: 'portfolio',
+        component: PortfolioManagementComponent
+      },
+      {
+        path: 'shop',
+        component: ShopManagementComponent
+      },
+      {
+        path: 'tags',
+        component: TagsManagementComponent
+      }
+    ]
+  },
+  { path: 'login', component: LoginComponent },
+  { path: 'about', component: AboutComponent }
+  // { path: '**', component: PageNotFoundComponent } // TODO
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,15 +95,7 @@ import { ShopManagementComponent } from './features/shop/shop-management/shop-ma
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([
-      { path: '', component: LandingpageComponent },
-      { path: 'blog', component: BlogComponent },
-      { path: 'portfolio', component: PortfolioComponent },
-      { path: 'portfolio/shop', component: ShopComponent },
-      { path: 'management', component: ManagementComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'about', component: AboutComponent }
-    ]),
+    RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FormsModule,
     CarouselModule.forRoot()

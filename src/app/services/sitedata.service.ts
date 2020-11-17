@@ -10,15 +10,17 @@ import { ConnectionService } from './sub/connection.service';
 })
 export class SitedataService {
 
+  endpointRoute = "";
+
   constructor(
     private connectionService: ConnectionService
   ) { }
 
   getData(): Observable<any> { // change any to matching datatype?
-    return this.connectionService.getRequest("/gettest");
+    return this.connectionService.getRequest("gettest");
   }
 
   setData(data: any): Observable<any> {
-    return this.connectionService.postRequest("/settest", data);
+    return this.connectionService.postRequest("settest", data);
   }
 }

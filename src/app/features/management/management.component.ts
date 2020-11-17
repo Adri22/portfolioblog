@@ -9,15 +9,26 @@ import { SitedataService } from '../../services/sitedata.service';
 })
 export class ManagementComponent implements OnInit {
 
+  menu = [
+    { link: "general", name: "General" },
+    { link: "blog", name: "Blog" },
+    { link: "portfolio", name: "Portfolio" },
+    { link: "shop", name: "Shop" },
+    { link: "tags", name: "Tags" }
+  ];
+
+  /*
   testdata: any;
   input: string;
+  */
 
   constructor(private sitedataService: SitedataService) { }
 
   ngOnInit(): void {
-    this.getSitedata();
+    // this.getSitedata();
   }
 
+  /*
   getSitedata(): void {
     this.sitedataService.getData().subscribe(data => this.testdata = data);
   }
@@ -27,4 +38,5 @@ export class ManagementComponent implements OnInit {
       this.testdata = this.testdata.concat(data.ops);
     });
   }
+  */
 }

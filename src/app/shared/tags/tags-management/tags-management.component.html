@@ -1,1 +1,8 @@
-<p>tags-management works!</p>
+<div>
+    <label>add Tag:
+        <input #tagName />
+    </label>
+    <button (click)="submit(tagName.value); tagName.value=''">
+        add
+    </button>
+</div>

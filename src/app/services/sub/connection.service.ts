@@ -16,7 +16,7 @@ export class ConnectionService {
     port: settings.server.port
   }
 
-  private apiURL = `http://${this.server.host}:${this.server.port}/api`;
+  private apiURL = `http://${this.server.host}:${this.server.port}/api/`;
 
   httpOptions = { // TODO: build up dynamically
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

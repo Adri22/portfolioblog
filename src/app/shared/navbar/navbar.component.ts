@@ -7,6 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  menu = {
+    primary: [
+      { link: "", name: "Home" },
+      { link: "blog", name: "Blog" },
+      { link: "portfolio", name: "Portfolio" }
+    ],
+    secondary: [
+      { link: "login", name: "Login" },
+      { link: "management", name: "Management" }
+    ]
+  };
+
   constructor() { }
 
   ngOnInit(): void {

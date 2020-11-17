@@ -8,23 +8,14 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
 
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a [routerLink]="''" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-                <a [routerLink]="'blog'" class="nav-link">Blog</a>
-            </li>
-            <li class="nav-item">
-                <a [routerLink]="'portfolio'" class="nav-link">Portfolio</a>
+            <li *ngFor="let entry of menu.primary" class="nav-item">
+                <a [routerLink]="entry.link" class="nav-link">{{entry.name}}</a>
             </li>
         </ul>
 
         <ul class="navbar-nav mt-2 mt-md-0">
-            <li class="nav-item">
-                <a [routerLink]="'login'" class="nav-link">login</a>
-            </li>
-            <li class="nav-item">
-                <a [routerLink]="'management'" class="nav-link">management</a>
+            <li *ngFor="let entry of menu.secondary" class="nav-item">
+                <a [routerLink]="entry.link" class="nav-link">{{entry.name}}</a>
             </li>
         </ul>
 

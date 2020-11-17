@@ -1,5 +1,27 @@
+<ul class="nav nav-tabs">
+    <li *ngFor="let entry of menu" class="nav-item">
+        <a [routerLink]="entry.link" class="nav-link">{{entry.name}}</a>
+    </li>
+</ul>
+
+<router-outlet></router-outlet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 <input class="form-control" [(ngModel)]="input" placeholder="test">
 
 <button (click)="submit()">Submit</button>
 
 <p *ngFor="let data of testdata">{{data._id}} ::: {{data.name}}</p>
+-->
