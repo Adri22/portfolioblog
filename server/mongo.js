@@ -11,17 +11,28 @@ class MongoHandler {
 
     #mongoClient = null;
     #db = null;
+    static #instance = null;
 
-    constructor() {
+    constructor() { // TODO: make constructor private? somehow?
         this.#mongoClient = new MongoClient(this.#uri, { useUnifiedTopology: true });
     }
 
-    #operation = async (action) => {
+    static getInstance() { // singleton-design: only use this function to return a instance
+        if (this.#instance) {
+            return this.#instance;
+        } else {
+            return this.#instance = new MongoHandler();
+        }
+    }
+
+    #handleRequest = async (req, res, action) => {
         try {
-            return await action();
-        } catch (err) { // TODO: add error-handling
-            console.log(err);
-        } finally { }
+            let data = await action();
+            res.status(200).send(data);
+        } catch (err) {
+            console.log(`something bad happened: ${err}`);
+            res.status(500).send(err);
+        }
     }
 
     async connect() {
@@ -36,14 +47,14 @@ class MongoHandler {
         }
     }
 
-    async findIn(collectionName) {
-        return await this.#operation(
+    async findIn(req, res, collectionName) {
+        return await this.#handleRequest(req, res,
             () => this.#db.collection(collectionName).find().toArray()
         );
     }
 
-    async insertIn(collectionName, data) {
-        return await this.#operation(
+    async insertIn(req, res, collectionName, data) {
+        return await this.#handleRequest(req, res,
             () => this.#db.collection(collectionName).insertOne(data)
         );
     }

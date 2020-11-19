@@ -1,8 +1,11 @@
 <div>
     <label>add Tag:
-        <input #tagName />
+        <input #tagInput />
     </label>
-    <button (click)="submit(tagName.value); tagName.value=''">
+    <button (click)="submit(tagInput.value); tagInput.value=''">
         add
     </button>
+    <ul>
+        <li *ngFor="let tag of tags">{{tag.name}}</li>
+    </ul>
 </div>

@@ -22,8 +22,8 @@ export class TagsManagementComponent implements OnInit {
     this.tagService.getTags().subscribe(data => this.tags = data);
   }
 
-  submit(name: string): void {
-    name = name.trim(); // TODO: what if there is more than one word?
+  submit(input: string): void {
+    let name = input.trim(); // TODO: what if there is more than one word?
     if (!name) { return; }
     this.tagService.setTag({ name } as Tag).subscribe(tag => {
       this.tags.push(tag);
