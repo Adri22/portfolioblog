@@ -5,7 +5,10 @@
     <button (click)="submit(tagInput.value); tagInput.value=''">
         add
     </button>
-    <ul>
-        <li *ngFor="let tag of tags">{{tag.name}}</li>
-    </ul>
 </div>
+
+<ul>
+    <li *ngFor="let tag of tags">
+        <span>{{tag.name}}</span>
+    </li>
+</ul>

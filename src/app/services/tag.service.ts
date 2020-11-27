@@ -21,7 +21,12 @@ export class TagService {
     return this.connectionService.getRequest(this.endpointRoute + "gettags");
   }
 
-  setTag(data: Tag): Observable<Tag> {
-    return this.connectionService.postRequest(this.endpointRoute + "settag", data);
+  setTag(tag: Tag): Observable<Tag> {
+    return this.connectionService.postRequest(this.endpointRoute + "settag", tag);
+  }
+
+  deleteTag(tag: Tag | number): Observable<Tag> {
+    const id = typeof tag === 'number' ? tag : tag._id;
+    return this.connectionService.deleteRequest(this.endpointRoute + "deletetag/" + id);
   }
 }

@@ -35,14 +35,14 @@ export class ConnectionService {
   }
 
   /*
-  putRequest(endpoint: string, data: any): Observable<boolean> {
-
-  }
-
-  deleteRequest(endpoint: string, data: any): Observable<boolean> {
-
+  putRequest<T>(endpoint: string, data: any): Observable<T> {
   }
   */
+
+  deleteRequest<T>(endpoint: string): Observable<T> {
+    return this.http.delete<T>(`${this.getAPIURL()}${endpoint}`, this.httpOptions)
+      .pipe(catchError(this.handleError<T>({ operation: endpoint })));
+  }
 
   getAPIURL(): string {
     return this.apiURL;

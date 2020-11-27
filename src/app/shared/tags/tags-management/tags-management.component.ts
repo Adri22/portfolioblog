@@ -26,7 +26,13 @@ export class TagsManagementComponent implements OnInit {
     let name = input.trim(); // TODO: what if there is more than one word?
     if (!name) { return; }
     this.tagService.setTag({ name } as Tag).subscribe(tag => {
+      // this.tags = this.tags.concat(tag);
       this.tags.push(tag);
     });
+  }
+
+  delete(tag: Tag): void {
+    this.tags = this.tags.filter(t => t !== tag);
+    this.tagService.deleteTag(tag).subscribe();
   }
 }
