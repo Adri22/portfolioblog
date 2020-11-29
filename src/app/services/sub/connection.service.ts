@@ -19,7 +19,8 @@ export class ConnectionService {
   private apiURL = `http://${this.server.host}:${this.server.port}/api/`;
 
   httpOptions = { // TODO: build up dynamically
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    params: {}
   };
 
   constructor(private http: HttpClient) { }
@@ -34,12 +35,13 @@ export class ConnectionService {
       .pipe(catchError(this.handleError<T>({ operation: endpoint })));
   }
 
-  /*
   putRequest<T>(endpoint: string, data: any): Observable<T> {
+    return this.http.put<T>(`${this.getAPIURL()}${endpoint}`, data, this.httpOptions)
+      .pipe(catchError(this.handleError<T>({ operation: endpoint })));
   }
-  */
 
-  deleteRequest<T>(endpoint: string): Observable<T> {
+  deleteRequest<T>(endpoint: string, data: any): Observable<T> {
+    this.httpOptions.params = data;
     return this.http.delete<T>(`${this.getAPIURL()}${endpoint}`, this.httpOptions)
       .pipe(catchError(this.handleError<T>({ operation: endpoint })));
   }

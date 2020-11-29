@@ -10,5 +10,6 @@
 <ul>
     <li *ngFor="let tag of tags">
         <span>{{tag.name}}</span>
+        <button title="delete tag" (click)="delete(tag)">x</button>
     </li>
 </ul>

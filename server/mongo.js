@@ -47,15 +47,21 @@ class MongoHandler {
         }
     }
 
-    async findIn(req, res, collectionName) {
+    async find(req, res, collectionName) {
         return await this.#handleRequest(req, res,
             () => this.#db.collection(collectionName).find().toArray()
         );
     }
 
-    async insertIn(req, res, collectionName, data) {
+    async insertOne(req, res, collectionName, data) {
         return await this.#handleRequest(req, res,
             () => this.#db.collection(collectionName).insertOne(data)
+        );
+    }
+
+    async deleteOne(req, res, collectionName, query) {
+        return await this.#handleRequest(req, res,
+            () => this.#db.collection(collectionName).deleteOne(query)
         );
     }
 

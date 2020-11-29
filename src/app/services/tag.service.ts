@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -27,6 +28,7 @@ export class TagService {
 
   deleteTag(tag: Tag | number): Observable<Tag> {
     const id = typeof tag === 'number' ? tag : tag._id;
-    return this.connectionService.deleteRequest(this.endpointRoute + "deletetag/" + id);
+    let httpParams = new HttpParams().set("id", id.toString());
+    return this.connectionService.deleteRequest(this.endpointRoute + "deletetag", httpParams);
   }
 }
