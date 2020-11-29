@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -18,29 +18,33 @@ export class ConnectionService {
 
   private apiURL = `http://${this.server.host}:${this.server.port}/api/`;
 
-  httpOptions = { // TODO: build up dynamically
+  private httpOptions = { // TODO: build up dynamically
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     params: {}
   };
 
   constructor(private http: HttpClient) { }
 
-  getRequest<T>(endpoint: string): Observable<T> {
-    return this.http.get<T>(`${this.getAPIURL()}${endpoint}`)
+  getRequest<T>(endpoint: string, data?: HttpParams): Observable<T> {
+    this.resetParams();
+    this.httpOptions.params = data;
+    return this.http.get<T>(`${this.getAPIURL()}${endpoint}`, this.httpOptions)
       .pipe(catchError(this.handleError<T>({ operation: endpoint })));
   }
 
   postRequest<T>(endpoint: string, data: any): Observable<T> {
+    this.resetParams();
     return this.http.post<T>(`${this.getAPIURL()}${endpoint}`, data, this.httpOptions)
       .pipe(catchError(this.handleError<T>({ operation: endpoint })));
   }
 
   putRequest<T>(endpoint: string, data: any): Observable<T> {
+    this.resetParams();
     return this.http.put<T>(`${this.getAPIURL()}${endpoint}`, data, this.httpOptions)
       .pipe(catchError(this.handleError<T>({ operation: endpoint })));
   }
 
-  deleteRequest<T>(endpoint: string, data: any): Observable<T> {
+  deleteRequest<T>(endpoint: string, data: HttpParams): Observable<T> {
     this.httpOptions.params = data;
     return this.http.delete<T>(`${this.getAPIURL()}${endpoint}`, this.httpOptions)
       .pipe(catchError(this.handleError<T>({ operation: endpoint })));
@@ -48,6 +52,10 @@ export class ConnectionService {
 
   getAPIURL(): string {
     return this.apiURL;
+  }
+
+  private resetParams(): void {
+    this.httpOptions.params = {};
   }
 
   private handleError<T>({ service = "service", operation = "operation", result }:
