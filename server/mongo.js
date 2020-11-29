@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, GridFSBucket } = require('mongodb');
 const settings = require('../environment-settings.json');
 
 const dbConnection = settings.database;
@@ -11,6 +11,7 @@ class MongoHandler {
 
     #mongoClient = null;
     #db = null;
+    #fsBucket = null;
     static #instance = null;
 
     constructor() { // TODO: make constructor private? somehow?
@@ -43,6 +44,7 @@ class MongoHandler {
         } finally {
             console.log(`Connected successfully to database ${dbConnection.name}`);
             this.#db = this.#mongoClient.db(dbConnection.name); // get database-object
+            this.#fsBucket = new GridFSBucket(this.#db); // create grid-fs-bucket
             // await this.#mongoClient.close();
         }
     }
@@ -63,6 +65,12 @@ class MongoHandler {
         return await this.#handleRequest(req, res,
             () => this.#db.collection(collectionName).deleteOne(query)
         );
+    }
+
+    async uploadFile(data) {
+        var filename = /[^/]*$/.exec(data)[0]; // placeholder
+        var writeStream = this.#fsBucket.openUploadStream(filename);
+
     }
 
 
