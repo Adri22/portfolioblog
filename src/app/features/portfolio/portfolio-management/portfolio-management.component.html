@@ -3,4 +3,7 @@
 <div class="form-group">
     <label for="file">Choose File</label>
     <input type="file" id="file" (change)="handleFileInput($event.target.files)">
+    <button (click)="submit()">
+        add
+    </button>
 </div>

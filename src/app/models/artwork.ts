@@ -4,7 +4,7 @@ export interface Artwork {
     _id: string;
     title: string;
     description: string;
-    file: File;
+    // file: File;
     fileID: string;
     tags: Tag[];
     date: Date;

@@ -19,6 +19,7 @@ export class ConnectionService {
   private apiURL = `http://${this.server.host}:${this.server.port}/api/`;
 
   private httpOptions = { // TODO: build up dynamically
+    // headers: new HttpHeaders({ 'Content-Type': undefined }),
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     params: {}
   };
@@ -32,9 +33,9 @@ export class ConnectionService {
       .pipe(catchError(this.handleError<T>({ operation: endpoint })));
   }
 
-  postRequest<T>(endpoint: string, data: any): Observable<T> {
+  postRequest<T>(endpoint: string, data: any, httpOptions?: {}): Observable<T> {
     this.resetParams();
-    return this.http.post<T>(`${this.getAPIURL()}${endpoint}`, data, this.httpOptions)
+    return this.http.post<T>(`${this.getAPIURL()}${endpoint}`, data, httpOptions === undefined ? this.httpOptions : httpOptions)
       .pipe(catchError(this.handleError<T>({ operation: endpoint })));
   }
 

@@ -10,20 +10,26 @@ import { Artwork } from '../../../models/artwork'
 })
 export class PortfolioManagementComponent implements OnInit {
 
+  file: File;
   artwork: Artwork;
+  artworks: Artwork[];
 
   constructor(private portfolioService: PortfolioService) { }
 
   ngOnInit(): void {
+    this.getArtworks();
   }
 
-  handleFileInput(files: FileList) {
-    this.artwork.file = files.item(0); // file -> FormData?
+  getArtworks(): void {
   }
 
-  uploadFileToActivity() {
-    this.portfolioService.uploadArtwork(this.artwork).subscribe(data => {
-      // do something, if upload success
+  handleFileInput(files: FileList): void {
+    this.file = files.item(0);
+  }
+
+  submit(): void {
+    this.portfolioService.uploadFile(this.file).subscribe(data => {
+      console.log(data);
     }, error => {
       console.log(error);
     });
