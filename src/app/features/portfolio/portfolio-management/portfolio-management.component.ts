@@ -28,11 +28,13 @@ export class PortfolioManagementComponent implements OnInit {
   }
 
   submit(): void {
-    this.portfolioService.uploadFile(this.file).subscribe(data => {
-      console.log(data);
-    }, error => {
-      console.log(error);
-    });
+    this.portfolioService.uploadFile(this.file).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      });
   }
 
 

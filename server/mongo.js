@@ -1,4 +1,5 @@
-const { MongoClient, GridFSBucket } = require('mongodb');
+const { MongoClient } = require('mongodb');
+const GridFsStorage = require('multer-gridfs-storage');
 const settings = require('../environment-settings.json');
 
 const dbConnection = settings.database;
@@ -11,7 +12,7 @@ class MongoHandler {
 
     #mongoClient = null;
     #db = null;
-    #fsBucket = null;
+    #gridStorage = null;
     static #instance = null;
 
     constructor() { // TODO: make constructor private? somehow?
@@ -24,6 +25,10 @@ class MongoHandler {
         } else {
             return this.#instance = new MongoHandler();
         }
+    }
+
+    getGridStorage() {
+        return this.#gridStorage;
     }
 
     #handleRequest = async (req, res, action) => {
@@ -44,7 +49,7 @@ class MongoHandler {
         } finally {
             console.log(`Connected successfully to database ${dbConnection.name}`);
             this.#db = this.#mongoClient.db(dbConnection.name); // get database-object
-            this.#fsBucket = new GridFSBucket(this.#db); // create grid-fs-bucket
+            this.#gridStorage = new GridFsStorage({ db: this.#db });
             // await this.#mongoClient.close();
         }
     }
@@ -67,11 +72,6 @@ class MongoHandler {
         );
     }
 
-    async uploadFile(data) {
-        var filename = /[^/]*$/.exec(data)[0]; // placeholder
-        var writeStream = this.#fsBucket.openUploadStream(filename);
-
-    }
 
 
 
