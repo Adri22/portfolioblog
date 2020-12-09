@@ -5,10 +5,22 @@ const MongoHandler = require('../../mongo');
 
 const app = express();
 const mongoHandler = MongoHandler.getInstance();
-const storage = mongoHandler.getGridStorage();
-const upload = multer({ storage: storage });
 
 const dbCollection = "portfolio";
+
+const gridStorage = mongoHandler.createGridStorage(
+    (req, file) => {
+        if (file.mimetype === "image/png") { // TODO: Check for more mimetypes
+            return {
+                bucketName: dbCollection
+            };
+        } else {
+            return null;
+        }
+    }
+);
+
+const upload = multer({ storage: gridStorage });
 
 app.post("/setfile", upload.single("artworkfile"), async (req, res) => {
     console.log(req.file);

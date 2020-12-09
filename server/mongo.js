@@ -12,7 +12,6 @@ class MongoHandler {
 
     #mongoClient = null;
     #db = null;
-    #gridStorage = null;
     static #instance = null;
 
     constructor() { // TODO: make constructor private? somehow?
@@ -27,21 +26,24 @@ class MongoHandler {
         }
     }
 
-    getGridStorage() {
-        return this.#gridStorage;
+    createGridStorage(fileSettings) {
+        return new GridFsStorage({
+            db: this.#db,
+            file: fileSettings
+        });
     }
 
     #handleRequest = async (req, res, action) => {
         try {
             let data = await action();
-            res.status(200).send(data);
+            res.send(data);
         } catch (err) {
             console.log(`something bad happened: ${err}`);
-            res.status(500).send(err);
+            res.send(err);
         }
     }
 
-    async connect() {
+    async connect(callback) {
         try {
             await this.#mongoClient.connect(); // Connect the client to the server
         } catch (err) {
@@ -49,7 +51,7 @@ class MongoHandler {
         } finally {
             console.log(`Connected successfully to database ${dbConnection.name}`);
             this.#db = this.#mongoClient.db(dbConnection.name); // get database-object
-            this.#gridStorage = new GridFsStorage({ db: this.#db });
+            callback();
             // await this.#mongoClient.close();
         }
     }
